@@ -3,11 +3,11 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "coe-ioc-python-project-template"
+name = "advent-of-code-2024"
 authors = [
-    "Anders Brakestad <anders.brakestad@akerbp.com>",
+    "Vetle Nevland <vetle.nevland@akerbp.com>",
     ]
-description = "Repository template for Python projects."
+description = "Repository for solving the daily challenges in the Advent of Code 2024."
 readme = "README.md"
 version = "0.0.1"
 
