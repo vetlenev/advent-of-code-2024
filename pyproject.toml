@@ -1,0 +1,36 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "coe-ioc-python-project-template"
+authors = [
+    "Anders Brakestad <anders.brakestad@akerbp.com>",
+    ]
+description = "Repository template for Python projects."
+readme = "README.md"
+version = "0.0.1"
+
+[[tool.poetry.packages]]
+include = "coe_ioc_python_project_template"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.1"
+pytest = "^8.2.1"
+ipykernel = "^6.29.4"
+nbformat = "^5.10.4"
+ruff = "^0.7.1"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.3.7"
+sphinx-rtd-theme = "^2.0.0"
+myst-parser = "^3.0.1"
+pylint = "^3.2.2"
+graphviz = "^0.20.3"
+diagrams = "^0.23.4"
+
+[tool.ruff]
+exclude = ["docs/**"]

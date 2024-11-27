@@ -1,0 +1,50 @@
+name: Docs
+on:
+  pull_request:
+
+jobs:
+
+  build_docs_job:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.11
+
+      - name: Install python dependencies
+        run: |
+          pip3 install poetry
+          poetry config virtualenvs.create false
+          poetry install
+
+      - name: Generate .rst files for modules
+        run: |
+          sphinx-apidoc -o ./docs/source ./coe_ioc_python_project_template
+
+      - name: make the sphinx docs
+        run: |
+          sphinx-build -M html ./docs ./docs/_build
+
+      - name: Init New Repo
+        run: |
+          cd docs/_build/html/
+          git init
+          touch .nojekyll
+          git add -A
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m 'deploy'
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html
+          publish_branch: gh-pages

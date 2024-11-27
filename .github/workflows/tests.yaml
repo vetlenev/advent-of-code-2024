@@ -1,0 +1,25 @@
+name: Tests
+on:
+  pull_request:
+
+jobs:
+  test_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          pip3 install poetry
+          poetry config virtualenvs.create false
+          poetry install
+
+      - name: Run tests
+        run: |
+          pytest -vv tests
