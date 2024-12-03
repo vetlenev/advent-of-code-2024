@@ -1,3 +1,5 @@
+import numpy as np
+
 def total_distance_deviation(a: list, b: list) -> int:
     a_sorted = sorted(a)
     b_sorted = sorted(b)
@@ -6,6 +8,18 @@ def total_distance_deviation(a: list, b: list) -> int:
         total_diff += abs(a_sorted[i] - b_sorted[i])
 
     return total_diff
+
+def similarity_score(a: list, b: list) -> int:
+    a = np.array(a)
+    b = np.array(b)
+
+    tot_score = 0
+    for left in a:
+        in_right = left == b
+        num_in_right = np.sum(in_right)
+        tot_score += left * num_in_right
+
+    return tot_score
 
 def read_lists_from_file(file_path: str) -> tuple:
     a = []
@@ -25,8 +39,10 @@ if __name__ == "__main__":
     root = Path(__file__).parent.parent.parent
     file_path = root / "advent_of_code_2024" / "data" / "dec01.txt"
 
-    a, b = read_lists_from_file(file_path)
+    left, right = read_lists_from_file(file_path)
         
-    tot_diff = total_distance_deviation(a, b)
-
+    tot_diff = total_distance_deviation(left, right)
     print(f"Total distance deviation: {tot_diff}")
+
+    sim_score = similarity_score(left, right)
+    print(f"Similarity score: {sim_score}")
